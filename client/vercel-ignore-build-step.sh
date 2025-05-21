@@ -1,4 +1,4 @@
 #!/bin/bash
-# Этот скрипт предотвращает выполнение команд из корневого package.json
-echo "✅ Ignoring build step from root package.json"
-exit 0 
+# Этот скрипт указывает Vercel продолжить деплой
+echo "✅ Continuing with deployment"
+exit 1 

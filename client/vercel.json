@@ -4,7 +4,6 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "outputDirectory": ".next",
-  "ignoreCommand": "bash ./vercel-ignore-build-step.sh",
   "headers": [
     {
       "source": "/api/(.*)",

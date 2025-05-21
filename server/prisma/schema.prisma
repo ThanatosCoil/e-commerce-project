@@ -1,0 +1,214 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  refreshToken String? @unique
+  resetPasswordToken String? @unique
+  resetPasswordExpires DateTime?
+  rememberMe Boolean @default(false)
+  reviews   Review[]
+  reviewVotes ReviewVote[]
+  cart      Cart?
+  addresses Address[]
+  orders    Order[]
+}
+
+model Product {
+  id        String   @id @default(cuid())
+  name      String
+  brand     String
+  description String
+  category  String
+  gender    String
+  sizes     String[]
+  colors    String[]
+  stock     Int
+  price     Float
+  discount  Float    @default(0)
+  soldCount Int      @default(0)
+  rating    Float?   @default(0)
+  images    String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isFeatured Boolean @default(false)
+  reviews   Review[]
+}
+
+model Cart {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id])
+  productId String
+  quantity  Int
+  size      String?
+  color     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cartId, productId, size, color])
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  rating      Int
+  pros        String?
+  cons        String?
+  comment     String?
+  isAnonymous Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId   String
+  votes       ReviewVote[]
+  voteCount   Int       @default(0)
+
+  @@unique([userId, productId])
+  @@index([productId])
+}
+
+model ReviewVote {
+  id        String   @id @default(cuid())
+  isUpvote  Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  reviewId  String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  @@unique([userId, reviewId])
+  @@index([reviewId])
+}
+
+model FeatureBanner {
+  id        String   @id @default(cuid())
+  imageUrl  String
+  displayOrder Int    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Coupon {
+  id        String   @id @default(cuid())
+  code      String @unique
+  discount  Float
+  startDate DateTime
+  endDate   DateTime
+  usageLimit Int
+  usageCount Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Address {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  name      String
+  address   String
+  country   String
+  city      String
+  zipCode   String
+  phone     String
+  isDefault Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  addressId String
+  address   Address  @relation(fields: [addressId], references: [id])
+  items     OrderItem[]
+  couponId  String?
+  coupon    Coupon?  @relation(fields: [couponId], references: [id])
+  total     Float
+  status    OrderStatus @default(PENDING)
+  paymentMethod PaymentMethod 
+  paymentStatus PaymentStatus @default(PENDING)
+  paymentId String?
+  paymentDate DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([addressId])
+  @@index([couponId])
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  productId String
+  productName String
+  productCategory String
+  quantity  Int
+  size      String?
+  color     String?
+  price     Float
+  discount  Float?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+enum Role {
+  USER
+  SUPER_ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  CASH_ON_DELIVERY
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}

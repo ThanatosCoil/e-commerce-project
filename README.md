@@ -39,10 +39,18 @@ npm run dev
 ### Клиент (.env)
 
 ```
-NEXT_PUBLIC_API_URL=http://localhost:5000
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_key
+ARCJET_KEY=
+JWT_SECRET=
+USER_STORAGE_KEY=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
 ```
 
 ### Сервер (.env)
 
-Необходимо настроить переменные окружения для базы данных, JWT и других сервисов.
+```
+NODE_ENV=development
+EMAIL_FROM=
+REDIS_URL=
+REDIS_PASSWORD=
+```

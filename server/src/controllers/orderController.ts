@@ -5,7 +5,7 @@ import Stripe from "stripe";
 import { deleteCacheByPattern } from "../config/redis";
 
 // Инициализация Stripe с секретным ключом
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "secret_key", {
   apiVersion: "2025-04-30.basil",
 });
 

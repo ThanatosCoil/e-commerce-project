@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/src/server.js",
-    "start:prod": "npm run prisma:deploy && node dist/src/server.js",
+    "start:prod": "node dist/src/server.js",
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "prisma:generate": "prisma generate",

@@ -6,14 +6,15 @@ import logobg from "/public/logobg.png";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import styles from "../auth-styles.module.css";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
-function ResetPasswordPage() {
+// Компонент-обертка для использования useSearchParams
+function ResetPasswordContent() {
   const [formData, setFormData] = useState({
     password: "",
     confirmPassword: "",
@@ -29,10 +30,10 @@ function ResetPasswordPage() {
   const { resetPassword, checkResetToken, isLoading } = useAuth();
 
   useEffect(() => {
-    const token = searchParams.get("token");
-    if (token) {
-      setToken(token);
-      validateResetToken(token);
+    const tokenParam = searchParams.get("token");
+    if (tokenParam) {
+      setToken(tokenParam);
+      validateResetToken(tokenParam);
     } else {
       setIsTokenValid(false);
     }
@@ -274,6 +275,48 @@ function ResetPasswordPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+// Загрузочный компонент для Suspense
+function LoadingResetPassword() {
+  return (
+    <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 w-full h-full">
+        <Image
+          src={banner}
+          alt="Background"
+          fill
+          priority
+          style={{ objectFit: "cover", objectPosition: "center" }}
+        />
+        <div className="absolute inset-0 bg-black/30"></div>
+      </div>
+
+      <div className="relative z-10 w-full max-w-md mx-auto p-8 backdrop-blur-lg bg-white/30 rounded-xl shadow-2xl border border-white/30">
+        <div className="flex justify-center mb-8">
+          <Image
+            src={logobg}
+            alt="Logo"
+            width={180}
+            height={45}
+            className="drop-shadow-lg"
+          />
+        </div>
+        <div className="text-center text-white text-lg">
+          Loading reset password page...
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Основной компонент страницы, обернутый в Suspense
+function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<LoadingResetPassword />}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }
 

@@ -16,6 +16,10 @@ import fs from "fs";
 import path from "path";
 import orderRoutes from "./routes/orderRoutes";
 import { initRedis, redisClient } from "./config/redis";
+import { exec } from "child_process";
+import { promisify } from "util";
+
+const execAsync = promisify(exec);
 
 dotenv.config();
 
@@ -44,6 +48,17 @@ app.use(cookieParser());
 
 export const prisma = new PrismaClient();
 
+// Функция для выполнения миграций
+async function runMigrations() {
+  try {
+    console.log("Running database migrations...");
+    await execAsync("npx prisma migrate deploy");
+    console.log("Migrations completed successfully");
+  } catch (error) {
+    console.error("Error running migrations:", error);
+  }
+}
+
 app.use("/api/auth", authRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/coupon", couponRoutes);
@@ -62,6 +77,9 @@ app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
 
   try {
+    // Запускаем миграции при старте приложения
+    await runMigrations();
+
     // Инициализация подключения к Redis
     if (process.env.REDIS_URL) {
       await initRedis();

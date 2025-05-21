@@ -23,6 +23,11 @@ const execAsync = promisify(exec);
 
 dotenv.config();
 
+// Выводим информацию о DATABASE_URL для диагностики (без отображения пароля)
+const dbUrl = process.env.DATABASE_URL || "";
+const sanitizedDbUrl = dbUrl.replace(/\/\/([^:]+):([^@]+)@/, "//***:***@");
+console.log(`Database URL (sanitized): ${sanitizedDbUrl}`);
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -47,6 +52,51 @@ app.use(express.json());
 app.use(cookieParser());
 
 export const prisma = new PrismaClient();
+
+// Функция для проверки подключения к базе данных с повторными попытками
+async function waitForDatabase(maxRetries = 10, retryInterval = 5000) {
+  let retries = 0;
+
+  // Выводим информацию о переменных окружения для диагностики
+  console.log("Environment variables check:");
+  console.log(`- NODE_ENV: ${process.env.NODE_ENV}`);
+  console.log(`- DATABASE_URL is set: ${!!process.env.DATABASE_URL}`);
+  console.log(`- PORT: ${process.env.PORT}`);
+
+  while (retries < maxRetries) {
+    try {
+      console.log(
+        `Attempt ${retries + 1}/${maxRetries}: Checking database connection...`
+      );
+
+      // Пробуем выполнить простой запрос к базе данных
+      await prisma.$queryRaw`SELECT 1`;
+
+      console.log("Successfully connected to the database!");
+      return true;
+    } catch (error) {
+      console.error(
+        `Database connection attempt ${retries + 1} failed:`,
+        error
+      );
+
+      retries++;
+      if (retries >= maxRetries) {
+        console.error(
+          "Max retries reached. Could not connect to the database."
+        );
+        return false;
+      }
+
+      console.log(
+        `Waiting ${retryInterval / 1000} seconds before next attempt...`
+      );
+      await new Promise((resolve) => setTimeout(resolve, retryInterval));
+    }
+  }
+
+  return false;
+}
 
 // Функция для выполнения миграций
 async function runMigrations() {
@@ -77,8 +127,18 @@ app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
 
   try {
-    // Запускаем миграции при старте приложения
-    await runMigrations();
+    // Ждем доступности базы данных перед запуском миграций
+    console.log("Waiting for database to be available...");
+    const isDatabaseAvailable = await waitForDatabase();
+
+    if (isDatabaseAvailable) {
+      // Запускаем миграции только если база данных доступна
+      await runMigrations();
+    } else {
+      console.error(
+        "Database is not available after maximum retries. Skipping migrations."
+      );
+    }
 
     // Инициализация подключения к Redis
     if (process.env.REDIS_URL) {

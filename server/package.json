@@ -39,6 +39,9 @@
     "nodemailer": "^6.10.0",
     "redis": "^5.0.1",
     "stripe": "^18.1.0",
+    "typescript": "^5.7.3",
+    "ts-node": "^10.9.2",
+    "prisma": "^6.2.1",
     "uuid": "^11.0.5"
   },
   "devDependencies": {
@@ -52,10 +55,7 @@
     "@types/multer": "^1.4.12",
     "@types/node": "^22.10.5",
     "@types/nodemailer": "^6.4.17",
-    "nodemon": "^3.1.9",
-    "prisma": "^6.2.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "nodemon": "^3.1.9"
   },
   "keywords": [],
   "author": "",

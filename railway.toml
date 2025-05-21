@@ -1,0 +1,11 @@
+[build]
+builder = "nixpacks"
+watchPatterns = ["server/**"]
+buildCommand = "cd server && npm install && npm run prisma:generate && npm run build"
+
+[deploy]
+startCommand = "cd server && npm run start:prod"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10 

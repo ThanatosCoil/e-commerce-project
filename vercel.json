@@ -1,11 +1,10 @@
 {
-  "buildCommand": "cd client && npm install && npm run build",
-  "outputDirectory": "client/.next",
   "framework": "nextjs",
+  "outputDirectory": ".next",
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://your-backend-url.com/api/:path*"
+      "destination": "https://your-actual-backend-url.com/api/:path*"
     }
   ]
 }

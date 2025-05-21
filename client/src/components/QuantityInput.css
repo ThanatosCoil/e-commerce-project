@@ -1,0 +1,135 @@
+/* 
+ * Стили для компонента QuantityInput
+ * Сбрасывает глобальные стили для инпута количества
+ */
+
+/* Базовые стили для инпута количества */
+.quantity-input {
+  /* Сброс глобальных стилей */
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+
+  /* Отключаем кнопки увеличения/уменьшения в числовом инпуте */
+  -moz-appearance: textfield;
+
+  /* Добавляем границы по бокам */
+  border-left: 1px solid #e5e7eb !important;
+  border-right: 1px solid #e5e7eb !important;
+
+  /* Чтобы избежать мерцания при вводе, устанавливаем фиксированный размер */
+  width: 3.5rem !important;
+  min-width: 3.5rem !important;
+}
+
+/* Темная тема - границы */
+.dark .quantity-input {
+  border-left: 1px solid #374151 !important;
+  border-right: 1px solid #374151 !important;
+}
+
+/* Скрываем стрелки в Chrome, Safari, Edge, Opera */
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Сброс стилей фокуса */
+.quantity-input:focus,
+.quantity-input:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-left: 1px solid #e5e7eb !important;
+  border-right: 1px solid #e5e7eb !important;
+  /* Убираем синюю подсветку */
+  ring: 0 !important;
+  ring-offset: 0 !important;
+}
+
+/* Темная тема - сохраняем границы при фокусе */
+.dark .quantity-input:focus,
+.dark .quantity-input:active {
+  border-left: 1px solid #374151 !important;
+  border-right: 1px solid #374151 !important;
+}
+
+/* Сброс эффекта hover */
+.quantity-input:hover:not(:disabled),
+.quantity-input:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-left: 1px solid #e5e7eb !important;
+  border-right: 1px solid #e5e7eb !important;
+  /* Убираем синюю подсветку при наведении */
+  color: inherit !important;
+}
+
+/* Темная тема для hover */
+.dark .quantity-input:hover:not(:disabled),
+.dark .quantity-input:hover {
+  outline: none !important;
+  box-shadow: none !important;
+  border-left: 1px solid #374151 !important;
+  border-right: 1px solid #374151 !important;
+}
+
+/* Убираем дополнительные стили от кастомных компонентов */
+.quantity-input[data-slot="input"],
+.quantity-input[data-slot="input"]:focus,
+.quantity-input[data-slot="input"]:active,
+.quantity-input[data-slot="input"]:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-left: 1px solid #e5e7eb !important;
+  border-right: 1px solid #e5e7eb !important;
+  /* Убираем синие стили */
+  ring: 0 !important;
+  ring-offset: 0 !important;
+}
+
+.dark .quantity-input[data-slot="input"],
+.dark .quantity-input[data-slot="input"]:focus,
+.dark .quantity-input[data-slot="input"]:active,
+.dark .quantity-input[data-slot="input"]:hover {
+  border-left: 1px solid #374151 !important;
+  border-right: 1px solid #374151 !important;
+}
+
+/* Сброс всех специфичных состояний инпута */
+.quantity-input:placeholder-shown,
+.quantity-input:not(:placeholder-shown),
+.quantity-input:focus-visible {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-left: 1px solid #e5e7eb !important;
+  border-right: 1px solid #e5e7eb !important;
+  /* Убираем фокусное кольцо */
+  ring: 0 !important;
+  ring-offset: 0 !important;
+}
+
+.dark .quantity-input:placeholder-shown,
+.dark .quantity-input:not(:placeholder-shown),
+.dark .quantity-input:focus-visible {
+  border-left: 1px solid #374151 !important;
+  border-right: 1px solid #374151 !important;
+}
+
+/* Дополнительные правила для устранения мерцания и синей подсветки */
+.quantity-input:focus-within,
+.quantity-input:focus-visible {
+  outline: none !important;
+  ring: 0 !important;
+  ring-offset: 0 !important;
+  box-shadow: none !important;
+}

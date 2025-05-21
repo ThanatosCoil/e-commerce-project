@@ -1,0 +1,8 @@
+/*
+ * Главный файл стилей для Super Admin
+ * Импортирует все модули стилей
+ */
+
+@import "./common.css";
+@import "./forms.css";
+@import "./products.css";

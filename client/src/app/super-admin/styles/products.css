@@ -1,0 +1,140 @@
+/*
+ * Уникальные стили для страниц товаров в секции Super Admin
+ */
+
+/* Стили для галереи изображений на странице списка */
+.product-image-gallery {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-gallery-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Стили для кнопок навигации в галерее */
+.gallery-navigation-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 10;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.dark .gallery-navigation-button {
+  background-color: rgba(31, 41, 55, 0.8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-navigation-button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.dark .gallery-navigation-button:hover {
+  background-color: rgba(31, 41, 55, 1);
+}
+
+.product-card:hover .gallery-navigation-button {
+  opacity: 1;
+}
+
+.gallery-navigation-button.prev {
+  left: 8px;
+}
+
+.gallery-navigation-button.next {
+  right: 8px;
+}
+
+/* Стили для карточки товара */
+.product-card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.product-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.dark .product-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для заголовков секций */
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dark .section-title {
+  color: #f3f4f6;
+  border-bottom: 1px solid #374151;
+}
+
+/* Стили для поля загрузки файлов */
+label[for="file-upload"] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  background-color: #f3f4f6;
+}
+
+.dark label[for="file-upload"] {
+  background-color: #1f2937;
+}
+
+label[for="file-upload"]:hover {
+  background-color: #e5e7eb;
+}
+
+.dark label[for="file-upload"]:hover {
+  background-color: #374151;
+}
+
+label[for="file-upload"] span {
+  font-size: 0.875rem;
+}
+
+@media (max-width: 640px) {
+  label[for="file-upload"] {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Текст кнопки для просмотра файлов без отступов */
+.browse-files-text {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  display: inline-block !important;
+}

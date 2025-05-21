@@ -1,0 +1,71 @@
+/* Стили для трека слайдера */
+[data-slot="slider-track"] {
+  height: 6px !important;
+  background-color: #e5e7eb !important;
+  border-radius: 9999px !important;
+  overflow: hidden !important;
+  transition: background-color 0.2s ease-in-out !important;
+}
+
+/* Стили для темного режима */
+.dark [data-slot="slider-track"] {
+  background-color: rgba(55, 65, 81, 0.5) !important;
+}
+
+/* Стили для диапазона слайдера */
+[data-slot="slider-range"] {
+  background: linear-gradient(to right, #2563eb, #4f46e5) !important;
+  height: 100% !important;
+  border-radius: 9999px !important;
+  transition: background 0.2s ease-in-out !important;
+}
+
+/* Стили для темного режима */
+.dark [data-slot="slider-range"] {
+  background: linear-gradient(to right, #3b82f6, #6366f1) !important;
+}
+
+/* Стили для ползунков слайдера */
+[data-slot="slider-thumb"] {
+  width: 18px !important;
+  height: 18px !important;
+  border: 2px solid #2563eb !important;
+  background-color: white !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  cursor: pointer !important;
+}
+
+/* Стили для темного режима */
+.dark [data-slot="slider-thumb"] {
+  border-color: #3b82f6 !important;
+  background-color: #1f2937 !important;
+}
+
+/* Стили при наведении */
+[data-slot="slider-thumb"]:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 3px 6px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Стили при активном состоянии */
+[data-slot="slider-thumb"]:active {
+  transform: scale(1.15) !important;
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.4) !important;
+}
+
+/* Стили при фокусе */
+[data-slot="slider-thumb"]:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35) !important;
+}
+
+/* Инпуты цены */
+.custom-price-slider input[type="number"]::-webkit-inner-spin-button,
+.custom-price-slider input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-price-slider input[type="number"] {
+  -moz-appearance: textfield;
+}

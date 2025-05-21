@@ -1,0 +1,207 @@
+/*Стили специфичные для страниц аутентификации*/
+
+.authContainer {
+  /* Контейнер для компонентов авторизации */
+}
+
+/* Стили для инпутов на страницах авторизации */
+.input {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: #1f2937 !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
+}
+
+/* Специальные стили для инпутов на странице логина с повышенной специфичностью */
+html body .authContainer .input,
+html body [data-slot="input"].input,
+html body input.input {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: #1f2937 !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
+  z-index: 50 !important;
+}
+
+.input::placeholder {
+  color: rgba(31, 41, 55, 0.7) !important;
+}
+
+html body .input::placeholder,
+html body [data-slot="input"].input::placeholder {
+  color: rgba(31, 41, 55, 0.7) !important;
+}
+
+.input:hover {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5),
+    0 0 8px 2px rgba(255, 255, 255, 0.7) !important;
+}
+
+html body .input:hover,
+html body [data-slot="input"].input:hover {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5),
+    0 0 8px 2px rgba(255, 255, 255, 0.7) !important;
+}
+
+.input:focus {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  border-color: white !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3),
+    0 0 8px 2px rgba(255, 255, 255, 0.5) !important;
+  outline: none !important;
+}
+
+html body .input:focus,
+html body [data-slot="input"].input:focus {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  border-color: white !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3),
+    0 0 8px 2px rgba(255, 255, 255, 0.5) !important;
+  outline: none !important;
+}
+
+/* Стили для слота ввода */
+.inputSlot {
+  z-index: 20 !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+html body .inputSlot {
+  z-index: 20 !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.inputSlot:focus {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  border-color: white !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3),
+    0 0 8px 2px rgba(255, 255, 255, 0.5) !important;
+}
+
+html body .inputSlot:focus {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  border-color: white !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3),
+    0 0 8px 2px rgba(255, 255, 255, 0.5) !important;
+}
+
+.inputSlot:not(:placeholder-shown) {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+html body .inputSlot:not(:placeholder-shown) {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Стили для кнопки отображения пароля */
+.passwordButton svg {
+  color: rgba(31, 41, 55, 0.7);
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+}
+
+.passwordButton:hover svg {
+  color: #1f2937;
+  transform: scale(1.1);
+}
+
+.passwordButton:active svg {
+  transform: scale(0.95);
+}
+
+/* Стили для чекбокса */
+.checkbox {
+  height: 1rem !important;
+  width: 1rem !important;
+  border: 2px solid white !important;
+  border-radius: 0.125rem !important;
+  transition-property: all !important;
+  transition-duration: 0.2s !important;
+  transform: scale(1) !important;
+  background-color: transparent !important;
+  outline: none !important;
+}
+
+/* атрибут-селектор для повышения специфичности */
+html body [type="checkbox"].checkbox,
+html body button[role="checkbox"].checkbox,
+html body .checkbox[data-state] {
+  height: 1rem !important;
+  width: 1rem !important;
+  border: 2px solid white !important;
+  border-radius: 0.125rem !important;
+  background-color: transparent !important;
+}
+
+.checkbox:hover,
+html body .checkbox:hover {
+  transform: scale(1.1) !important;
+  border-color: white !important;
+}
+
+.checkbox[data-state="checked"],
+html body .checkbox[data-state="checked"] {
+  background-color: white !important;
+  color: black !important;
+  border-color: #4b5563 !important;
+}
+
+.checkbox[data-state="checked"],
+html body .checkbox[data-state="checked"]:hover {
+  background-color: white !important;
+  color: black !important;
+  border-color: white !important;
+}
+
+.checkbox:focus,
+html body .checkbox:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Стили для иконки внутри чекбокса */
+.checkbox[data-state="checked"] svg,
+html body .checkbox[data-state="checked"] svg {
+  scale: 1.2 !important;
+  color: black !important;
+}
+
+/* Стили для контейнера чекбокса */
+.checkboxContainer {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Стили для текста чекбокса */
+.checkboxLabel {
+  color: white !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition-property: color !important;
+  transition-duration: 0.2s !important;
+  user-select: none !important;
+}
+
+html body .checkboxLabel,
+html body label.checkboxLabel {
+  color: white !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+}
+
+.checkboxLabel:hover,
+html body .checkboxLabel:hover {
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-decoration: underline !important;
+}

@@ -1,0 +1,294 @@
+/* 
+ * Общие стили для всех страниц Super Admin
+ * Этот файл содержит стили, которые используются на нескольких страницах
+ */
+
+/* Стили для просмотра изображений */
+.product-image-preview {
+  overflow: hidden;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  will-change: transform;
+  position: relative;
+}
+
+.product-image-preview:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .product-image-preview:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
+    0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+.product-image-preview img {
+  transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform;
+}
+
+.product-image-preview:hover img {
+  transform: scale(1.05);
+}
+
+.image-preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.dark .image-preview-overlay {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.product-image-preview:hover .image-preview-overlay {
+  opacity: 1;
+}
+
+/* Стили для полноэкранного просмотра изображений */
+.gallery-fullscreen-button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.dark .gallery-fullscreen-button {
+  background-color: rgba(31, 41, 55, 0.9);
+  border: 1px solid rgba(75, 85, 99, 0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.product-image-preview:hover .gallery-fullscreen-button {
+  opacity: 1;
+}
+
+.gallery-fullscreen-button:hover {
+  background-color: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.dark .gallery-fullscreen-button:hover {
+  background-color: rgba(31, 41, 55, 1);
+}
+
+/* Стили для полноэкранного режима просмотра */
+.fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  cursor: pointer;
+}
+
+.fullscreen-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Чтобы диалоговые окна оставались выше полноэкранного режима */
+[data-state="open"][role="dialog"] {
+  z-index: 10002;
+}
+
+/* Чтобы DialogOverlay оставалось ниже полноэкранного режима */
+[data-state="open"][id^="radix-:"][role="alertdialog"] {
+  z-index: 10002;
+}
+
+.fullscreen-image-container {
+  position: relative;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background-color: transparent;
+  margin: 0 auto;
+}
+
+.fullscreen-image {
+  max-width: 80vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  pointer-events: auto;
+  cursor: default;
+  position: relative;
+}
+
+.dark .fullscreen-image {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Кнопка закрытия */
+.fullscreen-close-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.fullscreen-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* Индикаторы */
+.fullscreen-image-container .absolute.bottom-4 {
+  position: absolute !important;
+  bottom: -40px !important;
+  z-index: 10001;
+  pointer-events: auto;
+  display: flex;
+  gap: 8px;
+}
+
+/* Невидимые области навигации */
+.navigation-area {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 10001;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.navigation-prev {
+  left: 0;
+  width: 30%;
+}
+
+.navigation-next {
+  right: 0;
+  width: 70%;
+}
+
+.navigation-prev::after,
+.navigation-next::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background-size: 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.8));
+}
+
+/* Показываем стрелки при наведении на контейнер */
+.fullscreen-image-container:hover .navigation-area::after {
+  opacity: 0.5;
+}
+
+/* Увеличиваем непрозрачность при наведении на область навигации */
+.navigation-area:hover::after {
+  opacity: 1 !important;
+}
+
+.navigation-prev::after {
+  left: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 18 9 12 15 6'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+.navigation-next::after {
+  right: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Стили для инпутов */
+input,
+textarea {
+  border-radius: 0.5rem !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.dark input,
+.dark textarea {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+input:hover:not(:disabled),
+textarea:hover:not(:disabled) {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.2) !important;
+}
+
+.dark input:hover:not(:disabled),
+.dark textarea:hover:not(:disabled) {
+  border-color: #60a5fa !important;
+  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.3) !important;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+  outline: none !important;
+}
+
+.dark input:focus,
+.dark textarea:focus {
+  border-color: #60a5fa !important;
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.3) !important;
+  outline: none !important;
+}
+
+/* Отступы для контейнера страницы */
+.container {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+.px-container {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}

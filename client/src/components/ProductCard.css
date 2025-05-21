@@ -1,0 +1,373 @@
+/* Стили для галереи изображений */
+.product-image-gallery {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image-gallery img,
+.product-image-gallery span {
+  transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform;
+}
+
+.product-gallery-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Стили для кнопок навигации в галерее */
+.gallery-navigation-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 10;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.gallery-navigation-button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.product-card:hover .gallery-navigation-button {
+  opacity: 1;
+}
+
+.gallery-navigation-button.prev {
+  left: 8px;
+}
+
+.gallery-navigation-button.next {
+  right: 8px;
+}
+
+/* Стиль для кнопки просмотра изображения в полном размере */
+.gallery-fullscreen-button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 40;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: opacity 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  padding: 0;
+}
+
+.gallery-fullscreen-button > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-fullscreen-button:hover {
+  background-color: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+/* Темная тема для кнопки */
+:root.dark .gallery-fullscreen-button,
+.dark .gallery-fullscreen-button {
+  background-color: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:root.dark .gallery-fullscreen-button > div,
+.dark .gallery-fullscreen-button > div {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:root.dark .gallery-fullscreen-button:hover,
+.dark .gallery-fullscreen-button:hover {
+  background-color: rgba(50, 50, 50, 1);
+}
+
+:root.dark .gallery-navigation-button,
+.dark .gallery-navigation-button {
+  background-color: rgba(30, 30, 30, 0.8);
+}
+
+:root.dark .gallery-navigation-button:hover,
+.dark .gallery-navigation-button:hover {
+  background-color: rgba(50, 50, 50, 1);
+}
+
+.product-card:hover .gallery-fullscreen-button {
+  opacity: 1;
+}
+
+/* Стили для полноэкранного режима просмотра */
+.fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  cursor: default;
+}
+
+.fullscreen-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fullscreen-image-container {
+  position: relative;
+  width: auto;
+  height: auto;
+  max-width: 80vw;
+  max-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background-color: transparent;
+  margin: 0 auto;
+}
+
+.fullscreen-image {
+  object-fit: contain !important;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  pointer-events: auto;
+  cursor: default;
+  position: relative;
+}
+
+/* Стили для навбара в полноэкранном режиме */
+body.fullscreen-mode header {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+/* Обеспечиваем, чтобы полноэкранный оверлей был выше всех других элементов */
+body.fullscreen-mode .fullscreen-overlay {
+  z-index: 999999 !important;
+}
+
+body.fullscreen-mode .fullscreen-close-button {
+  z-index: 1000000 !important;
+}
+
+/* Темная тема для изображения */
+:root.dark .fullscreen-image,
+.dark .fullscreen-image {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Кнопка закрытия */
+.fullscreen-close-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.fullscreen-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* Темная тема для кнопки закрытия */
+:root.dark .fullscreen-close-button,
+.dark .fullscreen-close-button {
+  background-color: rgba(30, 30, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:root.dark .fullscreen-close-button:hover,
+.dark .fullscreen-close-button:hover {
+  background-color: rgba(50, 50, 50, 0.8);
+}
+
+/* Невидимые области навигации */
+.navigation-area {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 10001;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.navigation-prev {
+  left: 0;
+  width: 30%;
+}
+
+.navigation-next {
+  right: 0;
+  width: 70%;
+}
+
+.navigation-prev::after,
+.navigation-next::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background-size: 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.8));
+}
+
+/* Показываем стрелки при наведении на контейнер */
+.fullscreen-image-container:hover .navigation-area::after {
+  opacity: 0.5;
+}
+
+/* Увеличиваем непрозрачность при наведении на область навигации */
+.navigation-area:hover::after {
+  opacity: 1 !important;
+}
+
+.navigation-prev::after {
+  left: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 18 9 12 15 6'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+.navigation-next::after {
+  right: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Стили для карточки товара */
+.product-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Стили для темного режима */
+
+:root.dark .product-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(70, 70, 70, 0.3),
+    0 8px 10px -6px rgba(70, 70, 70, 0.2);
+}
+
+:root.dark .product-image-preview,
+.dark .product-image-preview {
+  border-color: rgba(75, 85, 99, 0.5);
+}
+
+:root.dark .image-preview-overlay,
+.dark .image-preview-overlay {
+  background-color: rgba(17, 24, 39, 0.5);
+}
+
+/* Стили для контейнера описания */
+.description-container {
+  position: relative;
+  transition: height 0.3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.description-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.description-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.description-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* Темная тема для скроллбара */
+:root.dark .description-container,
+.dark .description-container {
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+:root.dark .description-container::-webkit-scrollbar-thumb,
+.dark .description-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Стили для индикаторов в полноэкранном режиме */
+.fullscreen-image-container .indicators {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  z-index: 10001;
+  pointer-events: auto;
+}
+
+.fullscreen-image-container .indicators button {
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 8px;
+  width: 8px;
+  border-radius: 9999px;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.fullscreen-image-container .indicators button.active,
+.fullscreen-image-container .indicators button[data-active="true"] {
+  background-color: white;
+  width: 24px;
+  height: 8px;
+}
+
+.fullscreen-image-container .indicators button:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}

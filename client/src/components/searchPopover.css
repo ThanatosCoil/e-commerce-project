@@ -1,0 +1,135 @@
+/* 
+ * Стили для SearchPopover.tsx
+ * Переопределяют глобальные стили в globals.css для инпута внутри формы поиска
+ */
+
+/* Сброс глобальных стилей и настройка специфичных стилей для инпута в поповере */
+.popover-search-container .popover-search-input input {
+  /* Сброс глобальных стилей */
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+
+  /* Специфичные стили для инпута в поповере */
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  color: #374151;
+}
+
+/* Темная тема */
+.dark .popover-search-container .popover-search-input input {
+  color: #e5e7eb;
+}
+
+/* Сброс стилей фокуса и наведения */
+.popover-search-container .popover-search-input input:focus,
+.popover-search-container .popover-search-input input:active,
+.popover-search-container .popover-search-input input:hover,
+.popover-search-container
+  .popover-search-form:hover
+  .popover-search-input
+  input {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+/* Сброс эффекта hover для светлой темы */
+.popover-search-input input:hover:not(:disabled) {
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Сброс эффекта hover для темной темы*/
+.dark
+  .popover-search-container
+  .popover-search-input
+  input:hover:not(:disabled),
+.dark
+  .popover-search-container
+  .popover-search-form:hover
+  .popover-search-input
+  input {
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Перекрываем глобальные стили hover в темной теме */
+.dark input.popover-search-input input:hover:not(:disabled),
+.dark .popover-search-input input:hover:not(:disabled),
+.dark input:hover:not(:disabled).popover-search-input {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+/* Стилизуем плейсхолдер */
+.popover-search-container .popover-search-input input::placeholder {
+  color: #9ca3af;
+  opacity: 0.8;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.dark .popover-search-container .popover-search-input input::placeholder {
+  color: #6b7280;
+}
+
+/* Эффект при фокусе на плейсхолдере */
+.popover-search-container .popover-search-input input:focus::placeholder {
+  opacity: 0.6;
+  transform: translateX(4px);
+}
+
+/* Переопределяем стили для Radix UI data-атрибутов */
+.popover-search-container [data-slot="input"],
+.popover-search-container [data-slot="input"]:focus,
+.popover-search-container [data-slot="input"]:active,
+.popover-search-container [data-slot="input"]:hover,
+.popover-search-container [data-slot="input"]:not(:placeholder-shown) {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* То же самое для темной темы */
+.dark .popover-search-container [data-slot="input"],
+.dark .popover-search-container [data-slot="input"]:focus,
+.dark .popover-search-container [data-slot="input"]:active,
+.dark .popover-search-container [data-slot="input"]:hover,
+.dark .popover-search-container [data-slot="input"]:not(:placeholder-shown) {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+/* Убираем внешние отступы у всех стилей формы */
+.popover-search-form {
+  outline: none !important;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Сбрасываем фокус у формы */
+.popover-search-form:focus-within {
+  border-color: #3b82f6;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Темная тема для формы */
+.dark .popover-search-form:focus-within {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.3) !important;
+}

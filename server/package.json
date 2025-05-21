@@ -1,15 +1,22 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "src/server.ts",
+  "main": "dist/src/server.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/src/server.ts",
+    "start": "node dist/src/server.js",
+    "start:prod": "npm run prisma:deploy && node dist/src/server.js",
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:seed": "ts-node prisma/seed.ts"
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:seed": "ts-node prisma/seed.ts",
+    "postinstall": "npm run prisma:generate && npm run build"
   },
   "prisma": {
     "seed": "node --loader ts-node/esm prisma/seed.ts"

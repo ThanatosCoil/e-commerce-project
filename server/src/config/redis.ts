@@ -9,6 +9,7 @@ export type RedisClientType = ReturnType<typeof createClient>;
 // Опции подключения к Redis
 const redisConfig = {
   url: process.env.REDIS_URL || "redis://localhost:6379",
+  password: process.env.REDIS_PASSWORD || undefined,
   socket: {
     connectTimeout: 10000, // Таймаут подключения 10 секунд
     reconnectStrategy: (retries: number) => {
@@ -43,15 +44,22 @@ redisClient.on("reconnecting", () => {
 // Инициализация Redis клиента
 export const initRedis = async (): Promise<void> => {
   if (!redisClient.isOpen) {
-    await redisClient.connect().catch((err) => {
+    try {
+      await redisClient.connect();
+      console.log("Redis client connected successfully");
+    } catch (err) {
       console.error("Failed to connect to Redis:", err);
-    });
+      console.log("Continuing without Redis...");
+    }
   }
 };
 
 //Получение значения из кеша
 export const getCache = async (key: string): Promise<string | null> => {
   try {
+    if (!redisClient.isOpen) {
+      return null;
+    }
     return await redisClient.get(key);
   } catch (error) {
     console.error("Redis get error:", error);
@@ -66,6 +74,9 @@ export const setCache = async (
   expiry: number = 300
 ): Promise<void> => {
   try {
+    if (!redisClient.isOpen) {
+      return;
+    }
     await redisClient.set(key, value, { EX: expiry });
   } catch (error) {
     console.error("Redis set error:", error);
@@ -75,6 +86,9 @@ export const setCache = async (
 //Удаление значения из кеша
 export const deleteCache = async (key: string): Promise<void> => {
   try {
+    if (!redisClient.isOpen) {
+      return;
+    }
     await redisClient.del(key);
   } catch (error) {
     console.error("Redis delete error:", error);
@@ -84,6 +98,9 @@ export const deleteCache = async (key: string): Promise<void> => {
 //Удаление кеша по шаблону
 export const deleteCacheByPattern = async (pattern: string): Promise<void> => {
   try {
+    if (!redisClient.isOpen) {
+      return;
+    }
     const keys = await redisClient.keys(pattern);
     if (keys.length > 0) {
       await redisClient.del(keys);
@@ -99,6 +116,9 @@ export const deleteCacheByPattern = async (pattern: string): Promise<void> => {
 //Очистка всего кеша
 export const clearCache = async (): Promise<void> => {
   try {
+    if (!redisClient.isOpen) {
+      return;
+    }
     await redisClient.flushAll();
     console.log("Cache cleared");
   } catch (error) {

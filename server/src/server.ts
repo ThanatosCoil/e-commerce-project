@@ -29,8 +29,10 @@ if (!fs.existsSync(uploadDir)) {
   console.log("Created uploads directory:", uploadDir);
 }
 
+const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
+
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: [clientUrl, "https://e-commerce-project-frontend.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
@@ -59,21 +61,39 @@ app.get("/", (req, res) => {
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
 
-  // Инициализация подключения к Redis
-  await initRedis();
+  try {
+    // Инициализация подключения к Redis
+    if (process.env.REDIS_URL) {
+      await initRedis();
+      console.log("Redis initialized successfully");
+    } else {
+      console.log("Redis URL not provided, skipping Redis initialization");
+    }
 
-  // Инициализация cron задачи для очистки устаревших токенов сброса пароля
-  setupTokenCleanupJob();
+    // Инициализация cron задачи для очистки устаревших токенов сброса пароля
+    setupTokenCleanupJob();
+  } catch (error) {
+    console.error("Error during server initialization:", error);
+  }
 });
 
 process.on("SIGINT", async () => {
   // Закрываем соединение с Redis
-  if (redisClient.isOpen) {
-    await redisClient.destroy();
+  if (redisClient && redisClient.isOpen) {
+    await redisClient.disconnect();
     console.log("Redis connection closed");
   }
 
   await prisma.$disconnect();
   console.log("Database connection closed");
   process.exit(0);
+});
+
+// Обработка необработанных исключений
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
+});
+
+process.on("uncaughtException", (error) => {
+  console.error("Uncaught Exception:", error);
 });

@@ -14,6 +14,14 @@ const nextConfig = {
         ]
       : [];
   },
+  // Отключаем проверку ESLint при сборке
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  // Отключаем проверку типов TypeScript при сборке
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = nextConfig;

@@ -38,15 +38,19 @@ npm run dev
 
 ### Клиент (.env)
 
+```
 ARCJET_KEY=
 JWT_SECRET=
 USER_STORAGE_KEY=
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
 STRIPE_SECRET_KEY=
+```
 
 ### Сервер (.env)
 
+```
 NODE_ENV=development
 EMAIL_FROM=
 REDIS_URL=
 REDIS_PASSWORD=
+```

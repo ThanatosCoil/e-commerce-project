@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -33,7 +33,8 @@ import { SerializedError } from "@reduxjs/toolkit";
 import { format } from "date-fns";
 import DeleteConfirmationDialog from "@/components/ui/delete-confirmation-dialog";
 
-function CouponsListPage() {
+// Компонент-обертка для использования useSearchParams
+function CouponsListContent() {
   const searchParams = useSearchParams();
   const {
     data: coupons = [],
@@ -360,6 +361,27 @@ function CouponsListPage() {
         </div>
       )}
     </div>
+  );
+}
+
+// Загрузочный компонент для Suspense
+function LoadingCouponsList() {
+  return (
+    <div className="container mx-auto py-8 flex justify-center items-center min-h-[600px]">
+      <Loader className="h-8 w-8 animate-spin text-blue-500 dark:text-blue-400" />
+      <span className="ml-2 text-lg dark:text-gray-300">
+        Loading coupons page...
+      </span>
+    </div>
+  );
+}
+
+// Основной компонент страницы, обернутый в Suspense
+function CouponsListPage() {
+  return (
+    <Suspense fallback={<LoadingCouponsList />}>
+      <CouponsListContent />
+    </Suspense>
   );
 }
 

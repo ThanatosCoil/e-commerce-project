@@ -41,7 +41,12 @@ if (!fs.existsSync(uploadDir)) {
 const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
 
 const corsOptions = {
-  origin: [clientUrl, "https://e-commerce-project-frontend.vercel.app"],
+  origin: [
+    clientUrl,
+    "https://e-commerce-project-frontend.vercel.app",
+    "https://e-commerce-project-client.up.railway.app",
+    /\.up\.railway\.app$/,
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],

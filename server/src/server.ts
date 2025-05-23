@@ -40,13 +40,9 @@ if (!fs.existsSync(uploadDir)) {
 
 const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
 
+// --- MONOREPO: Allow CORS from same domain (frontend and backend on same Railway project) ---
 const corsOptions = {
-  origin: [
-    clientUrl,
-    "https://e-commerce-project-frontend.vercel.app",
-    "https://e-commerce-project-client.up.railway.app",
-    /\.up\.railway\.app$/,
-  ],
+  origin: true, // Allow requests from same domain (monorepo setup)
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
@@ -128,7 +124,7 @@ app.get("/", (req, res) => {
   res.send("Hello From Backend");
 });
 
-app.listen(PORT, async () => {
+app.listen(Number(PORT), "0.0.0.0", async () => {
   console.log(`Server is running on port ${PORT}`);
 
   try {

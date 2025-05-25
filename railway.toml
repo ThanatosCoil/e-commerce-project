@@ -1,10 +1,10 @@
 [build]
 builder = "nixpacks"
-watchPatterns = ["client/**", "proxy-server.js", "package.json"]
-buildCommand = "npm install && npm run build:client"
+watchPatterns = ["client/**", "package.json"]
+buildCommand = "npm install && npm run build --prefix client"
 
 [deploy]
-startCommand = "npm run start"
+startCommand = "npm start --prefix client"
 healthcheckPath = "/"
 healthcheckTimeout = 180
 restartPolicyType = "ON_FAILURE"

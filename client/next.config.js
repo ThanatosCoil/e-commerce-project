@@ -12,7 +12,13 @@ const nextConfig = {
             destination: "http://localhost:3001/api/:path*",
           },
         ]
-      : [];
+      : [
+          {
+            source: "/api/:path*",
+            destination:
+              "https://e-commerce-project-production-47e2.up.railway.app/api/:path*",
+          },
+        ];
   },
   // Отключаем проверку ESLint при сборке
   eslint: {

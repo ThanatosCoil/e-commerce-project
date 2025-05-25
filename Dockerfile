@@ -25,7 +25,9 @@ WORKDIR /app
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/proxy-server.js ./
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/client/out ./client/out
+COPY --from=builder /app/client/.next ./client/.next
+COPY --from=builder /app/client/public ./client/public
+COPY --from=builder /app/client/package.json ./client/
 
 ENV NODE_ENV=production
 

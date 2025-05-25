@@ -16,13 +16,8 @@ app.use(
   })
 );
 
-// Сервирование статичных фронтендовых файлов
-app.use(express.static(path.join(__dirname, "client", "out")));
-
-// Откат к index.html для SPA
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "out", "index.html"));
-});
+// Сервирование статичных фронтендовых файлов из client/public
+app.use(express.static(path.join(__dirname, "client", "public")));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

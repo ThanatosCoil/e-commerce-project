@@ -1,22 +1,19 @@
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /app/client
 
-# Копируем package.json и client/package.json
-COPY package.json ./
-COPY client/package.json ./client/
+# Копируем package.json и package-lock.json для клиента
+COPY client/package.json ./
+COPY client/package-lock.json ./
 
-# Устанавливаем зависимости
+# Устанавливаем зависимости только для клиента
 RUN npm install
-RUN cd client && npm install
 
-# Копируем исходный код
-COPY . .
+# Копируем исходный код клиента
+COPY client/ .
 
 # Сборка фронта (Next.js/React)
-RUN cd client && npm run build
-
-WORKDIR /app/client
+RUN npm run build
 
 ENV NODE_ENV=production
 

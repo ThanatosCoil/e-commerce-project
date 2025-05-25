@@ -1,18 +1,23 @@
 FROM node:18-alpine
 
-WORKDIR /app/client
+WORKDIR /app
 
 # Копируем package.json и package-lock.json для клиента
-COPY client/package.json ./
-COPY client/package-lock.json ./
+COPY client/package.json ./client/
+COPY client/package-lock.json ./client/
 
 # Устанавливаем зависимости только для клиента
+WORKDIR /app/client
 RUN npm install
 
-# Копируем исходный код клиента (ВСЁ, кроме package.json и package-lock.json)
-COPY client/. ./
+# Копируем исходный код клиента (всё содержимое client/ внутрь /app/client)
+WORKDIR /app
+COPY client/ ./client/
 
-# Сборка фронта (Next.js/React)
+# Выводим структуру файлов для отладки
+RUN ls -l /app && ls -l /app/client
+
+WORKDIR /app/client
 RUN npm run build
 
 ENV NODE_ENV=production

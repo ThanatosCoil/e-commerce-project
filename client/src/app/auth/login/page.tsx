@@ -24,22 +24,10 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [userChecked, setUserChecked] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
-  const { login, isLoading, user } = useAuth();
+  const { login, isLoading, user, isLoggedIn } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    setUserChecked(true);
-  }, [user]);
-
-  if (!userChecked) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black/30">
-        <Loader2 className="h-10 w-10 animate-spin text-white" />
-      </div>
-    );
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -67,16 +55,23 @@ function LoginPage() {
     const success = await login(formData.email, formData.password, rememberMe);
     if (success) {
       toast.success("Login successful");
-      if (user?.role === "SUPER_ADMIN") {
-        router.push(`/super-admin`);
-      } else {
-        router.push(`/home`);
-      }
+      setLoginSuccess(true);
     } else {
       setLoginFailed(true);
       toast.error("Invalid email or password");
     }
   };
+
+  useEffect(() => {
+    if (loginSuccess && user) {
+      if (user.role === "SUPER_ADMIN") {
+        router.push(`/super-admin`);
+      } else {
+        router.push(`/home`);
+      }
+    }
+  }, [loginSuccess, user, router]);
+
   return (
     <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
       {/* Фоновое изображение на весь экран */}
@@ -194,7 +189,7 @@ function LoginPage() {
                 : "bg-white/90 hover:bg-white active:scale-[0.96] active:bg-gray-200 active:shadow-inner hover:shadow-lg"
             }`}
           >
-            {isLoading ? (
+            {isLoading || isLoggedIn ? (
               <div className="flex items-center justify-center">
                 <Loader2 className="h-5 w-5 animate-spin mr-2" />
                 <span>Logging in...</span>

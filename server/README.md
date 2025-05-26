@@ -40,27 +40,6 @@ npm run prisma:generate
 npm run dev
 ```
 
-## Деплой на Railway
-
-1. Создайте аккаунт на [Railway](https://railway.app/)
-2. Создайте новый проект
-3. Добавьте PostgreSQL и Redis сервисы
-4. Подключите репозиторий GitHub
-5. Настройте переменные окружения:
-
-   - DATABASE_URL (автоматически предоставляется Railway)
-   - JWT_SECRET
-   - CLOUDINARY_CLOUD_NAME
-   - CLOUDINARY_API_KEY
-   - CLOUDINARY_API_SECRET
-   - CLIENT_URL (URL вашего фронтенда)
-   - STRIPE_PUBLISHABLE_KEY
-   - STRIPE_SECRET_KEY
-   - EMAIL_FROM
-   - REDIS_URL (автоматически предоставляется Railway)
-
-6. Деплой запустится автоматически после настройки
-
 ## API Endpoints
 
 ### Аутентификация

@@ -7,13 +7,7 @@
 
 ## Деплой
 
-### Фронтенд (Vercel)
-
-Фронтенд часть приложения развернута на Vercel.
-
-### Бэкенд
-
-Бэкенд часть приложения должна быть развернута отдельно (например, на Railway, Heroku, или другом хостинге).
+Приложение развернуто на Railway по адресу e-commerce-production-front.up.railway.app
 
 ## Инструкции по локальному запуску
 
@@ -43,14 +37,23 @@ ARCJET_KEY=
 JWT_SECRET=
 USER_STORAGE_KEY=
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
-STRIPE_SECRET_KEY=
 ```
 
 ### Сервер (.env)
 
 ```
 NODE_ENV=development
-EMAIL_FROM=
+DATABASE_URL=""
+JWT_SECRET=
+PORT=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+CLIENT_URL=
+STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+ALLOWED_ORIGINS=
+EMAIL_FROM=noreply@example.com
 REDIS_URL=
 REDIS_PASSWORD=
 ```

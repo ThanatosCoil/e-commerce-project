@@ -32,6 +32,8 @@ const stripePromise = loadStripe(
   }
 );
 
+console.log("STRIPE KEY:", process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
 const CheckoutPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();

@@ -40,9 +40,8 @@ if (!fs.existsSync(uploadDir)) {
 
 const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
 
-// --- MONOREPO: Allow CORS from same domain (frontend and backend on same Railway project) ---
 const corsOptions = {
-  origin: true, // Allow requests from same domain (monorepo setup)
+  origin: true,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],

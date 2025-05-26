@@ -46,6 +46,17 @@ export const authenticateToken = async (
     });
 };
 
+// Вспомогательная функция для извлечения origin из URL
+function extractOrigin(url?: string) {
+  if (!url) return "";
+  try {
+    const u = new URL(url);
+    return u.origin;
+  } catch {
+    return "";
+  }
+}
+
 // Middleware для проверки CSRF-токена
 export const csrfProtection = (
   req: AuthenticatedRequest,
@@ -67,11 +78,13 @@ export const csrfProtection = (
   if (allowedOrigins.length > 0) {
     // Проверка происхождения запроса (если в production)
     if (process.env.NODE_ENV === "production") {
+      const originToCheck = extractOrigin(origin);
+      const refererToCheck = extractOrigin(referer);
+
       const isValidOrigin =
-        !origin || allowedOrigins.some((allowed) => origin === allowed);
+        !originToCheck || allowedOrigins.includes(originToCheck);
       const isValidReferer =
-        !referer ||
-        allowedOrigins.some((allowed) => referer.startsWith(allowed));
+        !refererToCheck || allowedOrigins.includes(refererToCheck);
 
       if (!isValidOrigin && !isValidReferer) {
         console.warn(

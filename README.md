@@ -1,4 +1,4 @@
-# E-Commerce Project
+# [E-Commerce Project](https://e-commerce-production-front.up.railway.app) [![Открыть проект](https://img.shields.io/badge/View%20Live-Online-brightgreen?style=for-the-badge&logo=vercel)](https://e-commerce-production-front.up.railway.app)
 
 ## Структура проекта
 
@@ -7,7 +7,7 @@
 
 ## Деплой
 
-Приложение развернуто на Railway по адресу e-commerce-production-front.up.railway.app
+Приложение развернуто на Railway по адресу [e-commerce-production-front.up.railway.app](https://e-commerce-production-front.up.railway.app)
 
 ## Инструкции по локальному запуску
 

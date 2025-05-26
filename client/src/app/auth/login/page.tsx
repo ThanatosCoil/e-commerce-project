@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { protectLoginAction } from "@/actions/auth";
 import styles from "../auth-styles.module.css";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2, Info } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 
 function LoginPage() {
@@ -25,6 +25,7 @@ function LoginPage() {
   const [loginFailed, setLoginFailed] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const [showAdminInfo, setShowAdminInfo] = useState(false);
 
   const { login, isLoading, user, isLoggedIn } = useAuth();
   const router = useRouter();
@@ -89,6 +90,46 @@ function LoginPage() {
 
       {/* Стеклянный блок регистрации */}
       <div className="relative z-10 w-full max-w-md mx-auto p-8 backdrop-blur-lg bg-white/30 rounded-xl shadow-2xl border border-white/30">
+        {/* Инфо иконка для входа в админ панель */}
+        <div
+          className="absolute top-4 right-4 group"
+          onMouseEnter={() => setShowAdminInfo(true)}
+          onMouseLeave={() => setShowAdminInfo(false)}
+        >
+          <button
+            type="button"
+            aria-label="Admin login info"
+            className="text-gray-700 dark:text-gray-200 hover:text-blue-600 focus:outline-none"
+            tabIndex={0}
+          >
+            <Info className="w-5 h-5" />
+          </button>
+          {showAdminInfo && (
+            <>
+              <div
+                className="absolute right-0"
+                style={{
+                  top: 24,
+                  width: "2.5rem",
+                  height: "16px",
+                  zIndex: 10,
+                }}
+              />
+              <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4 text-sm z-20">
+                <div className="font-semibold mb-1 text-blue-700 dark:text-blue-300">
+                  Admin Login
+                </div>
+                <div>
+                  Email:{" "}
+                  <span className="font-mono select-all">admin@gmail.com</span>
+                </div>
+                <div>
+                  Password: <span className="font-mono select-all">admin</span>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
         {/* Логотип */}
         <div className="flex justify-center mb-8">
           <Image

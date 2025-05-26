@@ -32,8 +32,6 @@ const stripePromise = loadStripe(
   }
 );
 
-console.log("STRIPE KEY:", process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-
 const CheckoutPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -219,6 +217,11 @@ const CheckoutPage = () => {
 
         // Очищаем корзину
         await clearCart();
+
+        // Очищаем купон
+        dispatch(removeCoupon());
+        setCouponCode("");
+        setAppliedCoupon(null);
       } else if (paymentMethod === "CREDIT_CARD") {
         if (!paymentMethodId) {
           toast.error("Please enter your credit card details");
@@ -257,6 +260,10 @@ const CheckoutPage = () => {
 
         // Очищаем корзину
         await clearCart();
+
+        dispatch(removeCoupon());
+        setCouponCode("");
+        setAppliedCoupon(null);
       }
     } catch (error) {
       console.error("Error creating order:", error);

@@ -1,4 +1,4 @@
-# [E-Commerce Project](https://e-commerce-production-front.up.railway.app) [![Открыть проект](https://img.shields.io/badge/View%20Live-Online-brightgreen?style=for-the-badge&logo=vercel)](https://e-commerce-production-front.up.railway.app)
+# [E-Commerce Project](https://e-commerce-project-client-eta.vercel.app) [![Открыть проект](https://img.shields.io/badge/View%20Live-Online-brightgreen?style=for-the-badge&logo=vercel)](https://e-commerce-project-client-eta.vercel.app)
 
 ---
 
@@ -46,7 +46,7 @@
 
 ## Деплой
 
-Приложение развернуто на Railway по адресу [e-commerce-production-front.up.railway.app](https://e-commerce-production-front.up.railway.app)
+Приложение развернуто на Vercel+Railway по адресу [https://e-commerce-project-client-eta.vercel.app](https://e-commerce-project-client-eta.vercel.app)
 
 ## Инструкции по локальному запуску
 

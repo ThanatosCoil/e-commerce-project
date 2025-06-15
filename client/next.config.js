@@ -16,7 +16,7 @@ const nextConfig = {
           {
             source: "/api/:path*",
             destination:
-              "https://e-commerce-project-production-47e2.up.railway.app/api/:path*",
+              "https://remarkable-serenity-production.up.railway.app/api/:path*",
           },
         ];
   },
